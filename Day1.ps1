@@ -1,9 +1,9 @@
-$Input = Get-Content .\input.txt
+$CodeInput = Get-Content .\input.txt
 $Elves = @()
 $Ans = 0
 $Cals = 0
 
-foreach ($Line in $Input) {
+foreach ($Line in $CodeInput) {
     if ($Line -match '[0-9]') {
         [int]$Cals += $Line
     }
