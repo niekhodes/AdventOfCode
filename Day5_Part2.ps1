@@ -15,7 +15,7 @@ foreach ($Line in $CodeInput[0..7]) {
 foreach ($Line in $CodeInput[10..($CodeInput.count)]) {
     [int[]]$Moves = $Line -split " " -replace '[^0-9]' | Where-Object { $_ -ne "" }
     [array]$Temp = $X.($Moves[1]) | Select-Object -first $Moves[0]
-    [array]$X.($Moves[1]) = $X[$Moves[1]] | Select-Object -Skip $Moves[0]
+    [array]$X.($Moves[1]) = $X.($Moves[1]) | Select-Object -Skip $Moves[0]
     if ([array]$X.($Moves[2])) {
         [array]$X.($Moves[2]) = $Temp + [array]$X.($Moves[2])
     }
