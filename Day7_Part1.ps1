@@ -16,12 +16,10 @@ foreach ($Line in $CodeInput) {
     #Navigate
     if ($Line -eq '$ cd /') {
         $Navigation = @()
-        Continue
     }
     elseif ($Line -match 'cd [A-z]') {
         $Navigation += "$($Line.split(' ')[2])"
         $Next = $Next."$($Line.split(' ')[2])"
-        Continue
     }
     elseif ($Line -eq '$ cd ..') {
         $Next = $Folders
@@ -29,13 +27,11 @@ foreach ($Line in $CodeInput) {
         foreach ($Step in $Navigation) {
             $Next = $Next.$Step
         }
-        Continue
     }
     elseif ($Line -eq '$ ls') {
-        Continue
     }
     #Add folder or file to $Folders
-    if ($Line -match 'dir') {
+    elseif ($Line -match 'dir') {
         $Next.($Line.split(' ')[1]) = @{Type = 'Folder'; Size = 0 }
     }
     else {
