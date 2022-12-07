@@ -4,6 +4,7 @@ $Ans = @()
 $Folders = @{}
 $Next = $Folders
 foreach ($Line in $CodeInput) {
+    #Calculate Size
     if ($Line -match 'cd' -and $Line -ne '$ cd /'){
         $Size = 0
         foreach ($File in $Next.GetEnumerator() ){
@@ -12,6 +13,7 @@ foreach ($Line in $CodeInput) {
         $Next.Size = $Size
         $Total.($Navigation -join '.') = $Size
     }
+    #Navigate
     if ($Line -eq '$ cd /') {
         $Navigation = @()
         Continue
@@ -37,7 +39,7 @@ foreach ($Line in $CodeInput) {
     elseif ($Line -eq '$ ls') {
         Continue
     }
-
+    #Add folder or file to $Folders
     if ($Line -match 'dir') {
         $Next.($Line.split(' ')[1]) = @{Type = 'Folder'; Size = 0 }
     }
@@ -45,10 +47,10 @@ foreach ($Line in $CodeInput) {
         $Next.($Line.split(' ')[1]) = @{Type = 'File'; Size = ($Line.split(' ')[0]) }
     }
 }
-
+#Calculate answer
 $MinDelete = $Folders.Size - 40000000
 foreach ($T in $Total.GetEnumerator()){
-    if ($T.Value -ge  $MinDelete){
+    if ($T.Value -ge $MinDelete){
         [array]$Ans += $T.Value
     }
 }
