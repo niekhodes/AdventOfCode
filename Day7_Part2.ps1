@@ -1,6 +1,6 @@
 $CodeInput = Get-Content .\input7.txt
 $Total = @{}
-$Ans = @()
+[array]$Ans = @()
 $Folders = @{}
 $Next = $Folders
 foreach ($Line in $CodeInput) {
@@ -29,11 +29,6 @@ foreach ($Line in $CodeInput) {
         foreach ($Step in $Navigation) {
             $Next = $Next.$Step
         }
-        Continue
-    }
-    elseif ($Line -match 'cd [A-z]') {
-        [array]$Navigation += "$($Line.split(' ')[2])"
-        $Next = $Next."$($Line.split(' ')[2])"
         Continue
     }
     elseif ($Line -eq '$ ls') {
