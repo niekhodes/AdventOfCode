@@ -1,6 +1,6 @@
 $CodeInput = Get-Content .\input7.txt
 $Total = @{}
-$Ans = 0
+[int]$Ans = 0
 $Folders = @{}
 $Next = $Folders
 foreach ($Line in $CodeInput) {
@@ -31,11 +31,6 @@ foreach ($Line in $CodeInput) {
         }
         Continue
     }
-    elseif ($Line -match 'cd [A-z]') {
-        [array]$Navigation += "$($Line.split(' ')[2])"
-        $Next = $Next."$($Line.split(' ')[2])"
-        Continue
-    }
     elseif ($Line -eq '$ ls') {
         Continue
     }
@@ -53,3 +48,4 @@ foreach ($T in $Total.GetEnumerator()){
         $Ans += $T.Value
     }
 }
+$Ans
